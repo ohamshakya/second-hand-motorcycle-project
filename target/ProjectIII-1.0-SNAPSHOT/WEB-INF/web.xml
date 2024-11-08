@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="4.0" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+    <servlet>
+        <servlet-name>UserRegister</servlet-name>
+        <servlet-class>com.project.controller.UserRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserLogin</servlet-name>
+        <servlet-class>com.project.controller.UserLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>com.project.controller.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewBike</servlet-name>
+        <servlet-class>com.project.controller.AddNewBike</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UserRegister</servlet-name>
+        <url-pattern>/UserRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserLogin</servlet-name>
+        <url-pattern>/UserLogin</url-pattern>
+    </servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>homepage.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewBike</servlet-name>
+        <url-pattern>/AddNewBike</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
