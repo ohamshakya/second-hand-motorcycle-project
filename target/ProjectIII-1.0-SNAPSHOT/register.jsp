@@ -6,16 +6,23 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    String status = (String) request.getAttribute("status");
-    if (status != null) {
+    String successMessage = (String) request.getAttribute("status");
+    String errorMessage = (String) request.getAttribute("error");
+    if (successMessage != null) {
 %>
-        <div class="alert">
-            <%= status %>
-        </div>
+<div style="color: green;">
+    <strong><%= successMessage%></strong>
+</div>
+<%
+    }
+    if (errorMessage != null) {
+%>
+<div style="color: red;">
+    <strong><%= errorMessage%></strong>
+</div>
 <%
     }
 %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,17 +33,24 @@
         <script src="https://cdn.tailwindcss.com"></script>
 
         <title>Register</title>
+        <style> 
+        .error {
+                color: red;
+                font-size: 0.875rem;
+            }
+        </style>
     </head>
 
     <body class="bg-white flex flex-col justify-center items-center h-screen font-mono">
     <div class="wrapper-main">
-        <div class="wrapper flex gap-10">
-            <div class="left-content flexf flex-col gap-16 items-center">
+        <div class="wrapper flex gap-40">
+            <div class="left-content flex flex-col gap-16 items-center">
         <h1 class="text-blue-500 text-1xl font-semi-bold">SecondHand Motorcycle Market</h1>
         <img src="./assets/images/background.png" class="w-56" alt="">
       </div>
-                <h2>Signup</h2>
+                
                 <div class="form-wrapper">
+                    <h2 class="text-center">Signup</h2>
                     <form id="signupForm" action="UserRegister" method="post" onsubmit="return validateForm()">
                         <div class="first-last flex gap-2 mt-4">
                             <div class="firstname">

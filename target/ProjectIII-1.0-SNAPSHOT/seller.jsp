@@ -248,21 +248,25 @@
                             User user_retrieve = (User) userSessionId.getAttribute("user");
                             int user_id = user_retrieve.getId();
                             BikeDao dao = new BikeDao(DbCon.getConnection());
+                            
                             List<Bike> bikes = dao.getBikesById(user_id);
+                            
                             if (bikes != null && !bikes.isEmpty()) {
                                 for (Bike bike : bikes) {
+                                System.out.println(bike.getId());
                     %>
                     <tr class="border">
+                        
                         <td class="border border-gray-200"><%= bike.getBrand()%></td>
                         <td class="border border-gray-200"><%= bike.getModel()%></td>
-                        <td class="border border-gray-200"><%= bike.getYear() %></td>
+                        <td class="border border-gray-200"><%= bike.getDate_listed() %></td>
                         <td class="border border-gray-200"><%= bike.getBike_condition()%></td>
                         <td class="border border-gray-200"><%= String.format("%.2f", bike.getPrice())%></td>
-                        <td class="border border-gray-200"><%= bike.getDescription() %></td>
+                       <td class="border border-gray-200"><%= bike.getDescription() %></td>
                         <td class="border border-gray-200">Available</td>
                         <td class="border border-gray-200">
-                            <button class="bg-[#FFC107] w-[6rem] text-white p-2 border rounded-md">Edit</button>
-                            <button class="bg-[#DC3545] w-[6rem] text-white p-2 border rounded-md">Delete</button>
+                            <a class="bg-yellow-300 outline outline-offset-2 outline-1 outline-yellow-600 text-black" href="editBike.jsp?id=<%=bike.getId() %>&userId=<%= user_id%>" >Edit</a> | 
+                            <a class="bg-red-900 outline outline-offset-2 outline-1 outline-red-500 text-black"  href="deleteBike.jsp?id=<%= bike.getId()%>&userId=<%= user_id%>">Delete</a>
                         </td>
                     </tr>
                     <%
@@ -278,8 +282,5 @@
                     %>
                 </tbody>
             </table>
-
-
-
     </body>
 </html>

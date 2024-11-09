@@ -51,7 +51,6 @@ public class BikeDao {
 
     public List<Bike> getBikesById(int userId) {
         List<Bike> bike = new ArrayList<Bike>();
-
         String sql = "SELECT * FROM bike where user_id = ?";
 
         try (Connection con = DbCon.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -62,14 +61,14 @@ public class BikeDao {
 
             while (rs.next()) {
                 Bike row = new Bike();
-
+                row.setId(rs.getInt("bike_id"));
                 row.setBrand(rs.getString("brand"));
                 row.setModel(rs.getString("model"));
                 row.setYear(rs.getString("year_bike"));
                 row.setBike_condition(rs.getString("bike_condition"));
                 row.setDescription(rs.getString("description"));
+                row.setDate_listed(rs.getString("date_listed"));
                 row.setPrice(rs.getFloat("price"));
-
                 bike.add(row);
             }
 
@@ -102,5 +101,67 @@ public class BikeDao {
         }
         return bike;
     }
-
+    
+    public boolean deleteBike(int id){
+        try{
+            Connection con = DbCon.getConnection();
+            String sql = "DELETE FROM bike where bike_id = ?";
+            PreparedStatement pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            
+            int rowsAffected = pstmt.executeUpdate();
+        }catch(SQLException e){
+         e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public Bike getValues(String id){
+        PreparedStatement pstmt = null;
+            ResultSet rs = null;
+            Bike bike = new Bike();
+        try{
+            Connection con = DbCon.getConnection();
+            String sql = "Select * from bike where bike_id = ?";
+            pstmt = con.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                bike.setBrand(rs.getString("brand"));
+                bike.setModel(rs.getString("model"));
+                bike.setYear(rs.getString("year_bike"));
+                bike.setBike_condition("bike_condition");
+                bike.setPrice(rs.getFloat("price"));
+                bike.setDescription(rs.getString("description"));
+                bike.setDate_listed(rs.getString("date_listed"));  
+            }
+        }catch(SQLException e){
+            e.printStackTrace();            
+        }
+        return bike;
+    }
+    
+    public void updateBike(Bike bike){
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        try{
+            Connection con = DbCon.getConnection();
+            
+            String sql = "Update bike set  brand = ?,model = ?,year_bike = ?,price = ?,bike_condition = ?,description = ?,date_listed = ? where id = ?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, bike.getBrand());
+            pstmt.setString(2, bike.getModel());
+            pstmt.setString(3, bike.getYear());
+            pstmt.setFloat(4, bike.getPrice());
+            pstmt.setString(5,bike.getBike_condition());
+            pstmt.setString(6,bike.getDescription());
+            pstmt.setString(7,bike.getDate_listed());
+            
+            pstmt.executeUpdate();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        
+    }
 }
