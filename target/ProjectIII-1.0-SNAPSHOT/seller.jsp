@@ -17,9 +17,9 @@
     if (user != null) {
         int userId = user.getId(); // Retrieve user ID
 %>
-<!--<h1>Welcome, Seller!</h1>
+<!--<h1>Welcome, Seller!</h1>-->
 <p>Your User ID: <%= userId%></p>
-<a href="addNewBike.jsp">Add New Bike</a>-->
+<!--<a href="addNewBike.jsp">Add New Bike</a>-->
 
 <%
 } else {

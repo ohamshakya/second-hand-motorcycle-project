@@ -18,15 +18,17 @@
     <body>
         <%
           String id = (String)request.getParameter("id");
+          int retrieveId = Integer.parseInt(id);
 
           
           BikeDao dao = new BikeDao(DbCon.getConnection());
-          Bike bike= dao.getValues(id);
+          Bike bike = dao.getValues(retrieveId);
+          
         %>
         <div class="bg-white rounded-lg shadow-lg p-6 w-11/12 md:w-1/3">
            
             <form id="Update" action="AddNewBike" method="post">
-                <input type="text" name="id" value="<%= id %>"/>
+                <input type="text" name="id" value="<%= retrieveId %>"/>
                 <div class="first-wrapper mt-4 flex gap-2">
                     <div class="brand">
                         <input type="text" name="brand" class="w-40 p-2 border rounded-md" placeholder="Enter brand" value="<%= bike.getBrand() %>">

@@ -116,7 +116,7 @@ public class BikeDao {
         return false;
     }
     
-    public Bike getValues(String id){
+    public Bike getValues(int id){
         PreparedStatement pstmt = null;
             ResultSet rs = null;
             Bike bike = new Bike();
@@ -124,9 +124,12 @@ public class BikeDao {
             Connection con = DbCon.getConnection();
             String sql = "Select * from bike where bike_id = ?";
             pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            
             rs = pstmt.executeQuery();
             
             while(rs.next()){
+                
                 bike.setBrand(rs.getString("brand"));
                 bike.setModel(rs.getString("model"));
                 bike.setYear(rs.getString("year_bike"));

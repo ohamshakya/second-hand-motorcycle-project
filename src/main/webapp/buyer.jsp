@@ -84,7 +84,7 @@
                 <p class="text-gray-600">Condition: <%= bike.getBike_condition()%></p>
                 <p class="text-gray-600">Description: <%= bike.getDescription()%></p>
                 
-                <a href="viewdetail.jsp?id=<%>" class="text-blue-500 hover:underline mt-2 inline-block">View Details</a>
+                <a href="viewdetail.jsp?id=<%= bike.getId() %>" class="text-blue-500 hover:underline mt-2 inline-block">View Details</a>
             </div>
         <%
                 }
