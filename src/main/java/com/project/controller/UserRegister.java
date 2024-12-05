@@ -51,7 +51,6 @@ public class UserRegister extends HttpServlet {
                 dispatcher.forward(request, response);
                 return;
             }
-            
             String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             
             User u = new User();

@@ -15,18 +15,21 @@
     </head>
     <body>
         <% 
-            //retrieving id from the seller.jsp
+           
          String id = (String)request.getParameter("id");
          int retrieveId = Integer.parseInt(id);
          
          BikeDao dao = new BikeDao(DbCon.getConnection());
          boolean isCheck = dao.deleteBike(retrieveId);
          
-          if(isCheck){
-          out.println("<script>alert('do you want to delete')</script>");
-            }else{
-            out.println("Not deleted");
-            }
+          if (isCheck) {
+            out.println("<script>alert('Todo deleted successfully');</script>");
+            response.sendRedirect("seller.jsp");
+        } else {
+            out.println("<script>alert('Something went wrong');</script>");
+       
+            response.sendRedirect("seller.jsp");
+        }
          
         %>
         

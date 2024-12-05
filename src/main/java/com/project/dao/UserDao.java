@@ -74,30 +74,29 @@ public class UserDao {
         return user;
     }
 
-    public Bike selectBikes(int id) throws ClassNotFoundException {
-        Bike bike = null;
-        String sql = "Select * from bike where id = ?";
-        try (Connection conn = DbCon.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    public List<User> getUsersById(int id){
+        List<User> list = new ArrayList<>();
+        String sql = "Select * from users where id = ?";
+        try{
+            Connection con = DbCon.getConnection();
+            PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setInt(1, id);
-
             ResultSet rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                String model = rs.getString("model");
-                String brand = rs.getString("brand");
-                int year = rs.getInt("year");
-                float price = rs.getFloat("price");
-                String bike_condition = rs.getString("bike_condition");
-                String description = rs.getString("description");
-                String date_listed = rs.getString("date_listed");
+            while(rs.next()){
+                User row = new User();
+                row.setFirstName(rs.getString("firstname"));
+                row.setLastName(rs.getString("lastname"));
+                row.setEmail(rs.getString("email"));
+                row.setPhone(rs.getString("phone"));;
+                list.add(row);
+              
+                
             }
-        } catch (SQLException e) {
+        }catch(Exception e){
             e.printStackTrace();
         }
-
-        return bike;
+        return list;
     }
-
     public List<User> selectAllUsers() throws ClassNotFoundException {
 
         List<User> userinfo = new ArrayList<User>();

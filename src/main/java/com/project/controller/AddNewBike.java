@@ -6,19 +6,24 @@ package com.project.controller;
 
 import com.project.connection.DbCon;
 import com.project.models.User;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author ohams
  */
+@MultipartConfig
 public class AddNewBike extends HttpServlet {
 
     /**
@@ -40,6 +45,27 @@ public class AddNewBike extends HttpServlet {
         String bikeCondition = request.getParameter("condition");
         String description = request.getParameter("description");
         String dateListed = request.getParameter("date_listed");
+        String status = request.getParameter("status");
+        Part file = request.getPart("image");
+        //get selected image filename
+        String imageFileName = file.getSubmittedFileName();
+        System.out.println("selected image file name : "+imageFileName);
+        
+        //get path of file where should the file be upload
+        String uploadPath = "C:/Users/ohams/OneDrive/Documents/NetBeansProjects/ProjectIII/src/main/webapp/assets/images/"+imageFileName;
+        
+        //uploading image
+        try{
+            FileOutputStream fos = new FileOutputStream(uploadPath);
+        InputStream in = file.getInputStream();
+        byte[] data = new byte[in.available()];
+        in.read(data);
+        fos.write(data);
+        fos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        
 
 // Get user session
         HttpSession userSession = request.getSession(false);
@@ -65,10 +91,8 @@ public class AddNewBike extends HttpServlet {
             connection = DbCon.getConnection();
 
             // Prepare SQL statement without bike_id
-            String sql = "INSERT INTO bike (model, brand, year_bike, price, bike_condition, description, date_listed, user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO bike (model, brand, year_bike, price, bike_condition, description, date_listed,status,imageFilename, user_id) VALUES (?, ?, ?, ?, ?, ?, ?,?,?, ?)";
             statement = connection.prepareStatement(sql);
-
-            
             statement.setString(1, model);
             statement.setString(2, brand);
             statement.setInt(3, yearBike);
@@ -76,13 +100,15 @@ public class AddNewBike extends HttpServlet {
             statement.setString(5, bikeCondition);
             statement.setString(6, description);
             statement.setString(7, dateListed);
-            statement.setInt(8, userId);
+            statement.setString(8, status);
+            statement.setString(9, imageFileName);
+            statement.setInt(10, userId);
 
            
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 request.setAttribute("success", "Bike successfully added!");
-                request.getRequestDispatcher("seller.jsp").forward(request, response); // Forward to seller.jsp
+                request.getRequestDispatcher("seller.jsp").forward(request, response);
             } else {
                 request.setAttribute("error", "Failed to insert data");
                 request.getRequestDispatcher("seller.jsp").forward(request, response);

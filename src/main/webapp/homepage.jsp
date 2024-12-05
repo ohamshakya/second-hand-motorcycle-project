@@ -76,13 +76,6 @@
       <div class="logo">
           <img src="./assets/images/background.png" class="w-16 ml-4" alt="">
       </div>
-      <!-- <div class="categories">
-        <select name="select" id="">
-          <option value="0">All categories</option>
-          <option value="1">Bikes</option>
-          <option value="2">Scooty</option>
-        </select>
-      </div> -->
       <div class="search_box">
         <form action="post">
           <div class="icon-wrapper flex items-center">

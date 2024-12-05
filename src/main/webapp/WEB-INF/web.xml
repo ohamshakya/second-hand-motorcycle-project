@@ -16,6 +16,18 @@
         <servlet-name>AddNewBike</servlet-name>
         <servlet-class>com.project.controller.AddNewBike</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminLogin</servlet-name>
+        <servlet-class>com.project.controller.AdminLogin</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRegister</servlet-name>
+        <servlet-class>com.project.controller.AdminRegister</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminLogout</servlet-name>
+        <servlet-class>com.project.controller.AdminLogout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UserRegister</servlet-name>
         <url-pattern>/UserRegister</url-pattern>
@@ -34,6 +46,18 @@
     <servlet-mapping>
         <servlet-name>AddNewBike</servlet-name>
         <url-pattern>/AddNewBike</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogin</servlet-name>
+        <url-pattern>/AdminLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRegister</servlet-name>
+        <url-pattern>/AdminRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminLogout</servlet-name>
+        <url-pattern>/AdminLogout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
